@@ -1,20 +1,19 @@
-# Deploy OPA Gatekeeper
+# Desplegamos OPA Gatekeeper
 kubectl apply -f https://raw.githubusercontent.com/open-policy-agent/gatekeeper/master/deploy/gatekeeper.yaml
 
-
 #Obtener namespaces y pods
-Kubectl get ns
+kubectl get ns
 kubectl get pods -n gatekeeper-system
 
-# Scenario: Enforce Having A Specific Label In Any New Namespace
-# Deploy the Contraint Template
+# Forzamos un label especifico en todos los nuevos namespaces
+# Desplegamos nuestro template
 kubectl apply -f k8srequiredlabels_template.yaml
 
 # Deploy the Constraints
 kubectl apply -f all_ns_must_have_gatekeeper.yaml
 
-# Deploy a namespace denied by Policy
-kubectl apply -f bad-namespace.yaml
+# Desplegamos un namespace denegado por la política previa
+kubectl apply -f namespace-erroneo.yaml
 
-# Deploy a namespace allowed by Policy
-kubectl apply -f good-namespace.yaml
+# Desplegamos un namespace a namespace allowed by Policy
+kubectl apply -f namespace_correcto.yaml
